@@ -20,8 +20,10 @@ app.get('/', (req, res) => {
 app.get("/:input", (req, res) => {
     try{
         let trial = req.params.input.toLowerCase();
-        let requestedInput = data.find(i => i.input.toLowerCase() === trial)
-        if (!requestedInput){
+        let str = '\\w*'+trial+'\\w*';
+        let reg = new RegExp(str, 'gi');
+        let requestedInput = data.filter(i => reg.test(i.input.toLowerCase()))
+        if (!requestedInput.length){
             throw new Error("Input not found!")
         }
         res.send(requestedInput);  
