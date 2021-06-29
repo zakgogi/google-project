@@ -1,0 +1,23 @@
+h1 {
+  text-align: center;
+  margin-top: 300px;
+}
+
+form {
+  text-align: center;
+}
+
+#searchInput {
+  width: 400px;
+}
+
+#submitBtn {
+  margin-right: 20px;
+}
+
+#submitBtn:disabled,
+#luckyBtn:disabled {
+  background: rgb(240, 240, 240);
+  color: inherit;
+  border: 1px solid rgb(49, 49, 49);
+}
