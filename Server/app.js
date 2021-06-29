@@ -18,15 +18,17 @@ app.get('/', (req, res) => {
 });
 
 app.get("/:input", (req, res) => {
-    let trial = req.params.input;
-    console.log(trial);
-    console.log(typeof trial);
-    let requestedInput = data.find(input => input.toString().toLowerCase() === trial.toLowerCase())
-
-    if (!requestedInput) {
-        throw new Error("Country Not Found!")
+    try{
+        let trial = req.params.input.toLowerCase();
+        let requestedInput = data.find(i => i.input.toLowerCase() === trial)
+        if (!requestedInput){
+            throw new Error("Input not found!")
+        }
+        res.send(requestedInput);  
+    } catch (error) {
+        res.status(404).send({message: error.message})
     }
-    res.send(requestedInput);  
+
 })
 
 module.exports = app;
