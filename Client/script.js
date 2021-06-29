@@ -7,7 +7,7 @@ async function getResults(e){
     try{
         let data = await fetch(`http://localhost:3000/${input}`);
         let dataJson = await data.json();
-        console.log(dataJson);
+        if(dataJson.message) throw new Error(dataJson.message);
         appendResults(dataJson);
     } catch(e){
         document.getElementById("resultsSection").innerHTML = '<p>Nothing for you :P</p>';
