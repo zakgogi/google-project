@@ -2,6 +2,7 @@ window.onload = function() {
     generatePage();
   };
 
+  
 let button = document.getElementById("submitBtn");
 button.addEventListener('click', storeSearch);
 let logo = document.getElementById("logo");
@@ -13,8 +14,8 @@ function storeSearch(){
 };
 
 async function generatePage(){
+    let query = localStorage.getItem("searchInput");
     try {
-        let query = localStorage.getItem("searchInput");
         let data = await fetch(`http://localhost:3000/${query}`);
         let dataJson = await data.json();
         if (dataJson.message){
@@ -22,7 +23,7 @@ async function generatePage(){
         }
         createPage(dataJson);  
     } catch (error){
-        getDataGoogle();
+        getDataGoogle(query);
     }
 
 }
@@ -47,13 +48,26 @@ function createPage(data){
     sectionToAppend.append(list);
 }
 
-function getDataGoogle(){
+async function getDataGoogle(input){
+    try{
+        let data = await fetch(`https://www.googleapis.com/customsearch/v1?key=${KEY}&cx=${CX}&q=${input}`);
+        console.log(data);
+        let dataJson = await data.json();
+        console.log(dataJson);
+        for(item of dataJson.items){
+            console.log(item);
+        }
+    }catch(e){
+        console.log(e);
+    }
+/* 
     let sectionToAppend = document.getElementById("resultsSection");
     let para = document.createElement('p');
     para.textContent = "This search unfortunately returned no results..."
-    sectionToAppend.append(para);
+    sectionToAppend.append(para); */
 }
 
 function toHome(){
     window.location.assign("/Client/index.html")
 }
+
