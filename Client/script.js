@@ -18,16 +18,13 @@ async function getResults(e){
 
 function appendResults(data){
     let html= ''
-    if (data.length){
-        for(object of data){
-            for(item of object.results){
-            html += `<a href= \'resultfinal.html?input=${object.input}&result=${item}\'> ${object.input} Result content ${item} </a><br>`
-            }   
-        }
+
+    for(object of data){
+        for(item of object.results){
+        html += `<a href= \'resultfinal.html?input=${object.input}&result=${item}\'> ${object.input} Result content ${item} </a><br>`
+        }   
     }
-    else {
-        
-    }
+
     const section = document.getElementById("resultsSection");
         
     section.innerHTML = html;
