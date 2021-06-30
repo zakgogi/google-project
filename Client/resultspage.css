@@ -6,3 +6,12 @@ form {
 h1 {
   display: inline;
 }
+
+#searchInput {
+  border-radius: 25px;
+  height: 20px;
+}
+
+#searchInput:focus {
+  outline: none;
+}

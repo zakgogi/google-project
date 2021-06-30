@@ -4,7 +4,8 @@ window.onload = function() {
 
 let button = document.getElementById("submitBtn");
 button.addEventListener('click', storeSearch);
-  
+let logo = document.getElementById("logo");
+logo.addEventListener('click', toHome); 
   
 function storeSearch(){
     let userInput = document.getElementById("searchInput").value
@@ -27,7 +28,8 @@ function createPage(data){
     let sectionToAppend = document.getElementById("resultsSection");
     let list = document.createElement('ul');
     let query = localStorage.getItem("searchInput");
-    console.log(data.results);
+    let placeholderToChange = document.getElementById("searchInput");
+    placeholderToChange.setAttribute('placeholder', query);
     for (let i=0; i<data.results.length; i++){
         let item = document.createElement('li');
         let link = document.createElement('a');
@@ -45,4 +47,8 @@ function errorAppend(){
     let para = document.createElement('p');
     para.textContent = "This search unfortunately returned no results..."
     sectionToAppend.append(para);
+}
+
+function toHome(){
+    window.location.assign("/Client/index.html")
 }
