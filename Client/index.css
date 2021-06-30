@@ -18,15 +18,34 @@ form {
   outline: none;
 }
 
+#searchInput:hover {
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.404);
+}
+
 #submitBtn {
   margin-right: 20px;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#luckyBtn {
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 #submitBtn:disabled,
 #luckyBtn:disabled {
   background: rgb(240, 240, 240);
   color: inherit;
-  border: 1px solid rgb(49, 49, 49);
+  border: none;
+  padding: 10px;
+}
+
+#submitBtn:hover,
+#luckyBtn:hover {
+  box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.404);
 }
 
 i {

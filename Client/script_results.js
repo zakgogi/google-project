@@ -2,8 +2,8 @@ window.onload = function() {
     generatePage();
   };
 
-  //const KEY = YOUR KEY GOES HERE
-  //const CX = YOUR CX CODE GOES HERE
+//const KEY = YOUR KEY GOES HERE
+//const CX = YOUR CX CODE GOES HERE
   
 let button = document.getElementById("submitBtn");
 button.addEventListener('click', storeSearch);
@@ -51,8 +51,8 @@ function createPage(data){
 }
 
 async function getDataGoogle(input){
-    try{
-        //let data = await fetch(`https://www.googleapis.com/customsearch/v1?key=${KEY}&cx=${CX}&q=${input}`);
+    try {
+        let data = await fetch(`https://www.googleapis.com/customsearch/v1?key=${KEY}&cx=${CX}&q=${input}`);
         let list = document.createElement('ul');
         let sectionToAppend = document.getElementById("resultsSection");
         let dataJson = await data.json();
@@ -68,17 +68,16 @@ async function getDataGoogle(input){
         }
         sectionToAppend.append(para);
         sectionToAppend.append(list);
-    }catch(e){
-        console.log(e);
+    } catch(error) {
+        console.log("I'm caught");
+        let sectionToAppend = document.getElementById("resultsSection");
+        let para = document.createElement('p');
+        para.textContent = ("We couldn't return any results, maybe try adding a google key...");
+        sectionToAppend.append(para);
     }
-/* 
-    let sectionToAppend = document.getElementById("resultsSection");
-    let para = document.createElement('p');
-    para.textContent = "This search unfortunately returned no results..."
-    sectionToAppend.append(para); */
 }
 
 function toHome(){
-    window.location.assign("/Client/index.html")
+    window.location.assign("/Client/index.html");
 }
 
