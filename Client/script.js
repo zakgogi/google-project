@@ -1,5 +1,4 @@
-const KEY = "AIzaSyCaT_staXY_TnZHGGr987oqrgGMmVWNjDM";
-const CX = "9df169a68b2afe25c";
+
 
 let button = document.getElementById("submitBtn");
 button.addEventListener('click', getResults);
