@@ -21,7 +21,7 @@ function appendResults(data){
     if (data.length){
         for(object of data){
             for(item of object.results){
-            html += `<a href= \'resultspage.html?input=${object.input}&result=${item}\'> ${object.input} Result content ${item} </a><br>`
+            html += `<a href= \'resultfinal.html?input=${object.input}&result=${item}\'> ${object.input} Result content ${item} </a><br>`
             }   
         }
     }
