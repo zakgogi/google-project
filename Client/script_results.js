@@ -2,8 +2,8 @@ window.onload = function() {
     generatePage();
   };
 
-//const KEY = YOUR KEY GOES HERE
-//const CX = YOUR CX CODE GOES HERE
+const KEY = "AIzaSyCaT_staXY_TnZHGGr987oqrgGMmVWNjDM";
+const CX = "9df169a68b2afe25c";
   
 let button = document.getElementById("submitBtn");
 button.addEventListener('click', storeSearch);
@@ -40,11 +40,18 @@ function createPage(data){
         for (let j=0; j<data[i].results.length; j++){     
             let item = document.createElement('li');
             let link = document.createElement('a');
+            let linkLabel = document.createElement('h3');
+            let lorem = document.createElement('p');
             let linkHref = `resultfinal.html?input=${data[i].input}&result=${data[i].results[j]}`
             link.setAttribute('href', linkHref);
             link.textContent = `${data[i].input} ${data[i].results[j]}`;
+            linkLabel.textContent = `https://${linkHref}`;
+            lorem.textContent = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec maximus egestas lectus dapibus fringilla. Morbi lacinia urna nec tortor convallis gravida. Ut turpis lorem, efficitur aliquam pellentesque et, placerat in justo."
+            item.append(linkLabel);
             item.append(link);
+            item.append(lorem);
             list.append(item);
+
         }
     }
     sectionToAppend.append(list);
@@ -56,20 +63,29 @@ async function getDataGoogle(input){
         let list = document.createElement('ul');
         let sectionToAppend = document.getElementById("resultsSection");
         let dataJson = await data.json();
+        console.log(dataJson);
         let para = document.createElement('p');
+        para.id = "errorPara";
         para.textContent = ("We were unable to retrieve our own search result.. Here is Google's return:")
         for(item of dataJson.items){
             let listItem = document.createElement('li');
             let link = document.createElement('a');
+            let linkLabel = document.createElement('h3');
+            let labelContent = item.link.slice(0, 80);
+            let snippetPara = document.createElement('p');
             link.textContent = item.title;
+            linkLabel.textContent = `${labelContent}...`;
             link.setAttribute('href', item.link);
+            snippetPara.textContent = item.snippet;
+            listItem.append(linkLabel);
             listItem.append(link);
+            listItem.append(snippetPara);
             list.append(listItem);
         }
         sectionToAppend.append(para);
         sectionToAppend.append(list);
     } catch(error) {
-        console.log("I'm caught");
+
         let sectionToAppend = document.getElementById("resultsSection");
         let para = document.createElement('p');
         para.textContent = ("We couldn't return any results, maybe try adding a google key...");
