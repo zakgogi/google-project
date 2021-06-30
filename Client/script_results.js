@@ -17,9 +17,12 @@ async function generatePage(){
         let query = localStorage.getItem("searchInput");
         let data = await fetch(`http://localhost:3000/${query}`);
         let dataJson = await data.json();
+        if (dataJson.message){
+            throw new Error()
+        }
         createPage(dataJson);  
     } catch (error){
-        errorAppend();
+        getDataGoogle();
     }
 
 }
@@ -30,19 +33,21 @@ function createPage(data){
     let query = localStorage.getItem("searchInput");
     let placeholderToChange = document.getElementById("searchInput");
     placeholderToChange.setAttribute('placeholder', query);
-    for (let i=0; i<data.results.length; i++){
-        let item = document.createElement('li');
-        let link = document.createElement('a');
-        let linkHref = `resultfinal.html/?input=${query}&result=${i}`
-        link.setAttribute('href', linkHref);
-        link.textContent = data.results[i];
-        item.append(link);
-        list.append(item);
+    for (let i=0; i<data.length; i++){
+        for (let j=0; j<data[i].results.length; j++){     
+            let item = document.createElement('li');
+            let link = document.createElement('a');
+            let linkHref = `resultfinal.html?input=${data[i].input}&result=${data[i].results[j]}`
+            link.setAttribute('href', linkHref);
+            link.textContent = `${data[i].input} ${data[i].results[j]}`;
+            item.append(link);
+            list.append(item);
+        }
     }
     sectionToAppend.append(list);
 }
 
-function errorAppend(){
+function getDataGoogle(){
     let sectionToAppend = document.getElementById("resultsSection");
     let para = document.createElement('p');
     para.textContent = "This search unfortunately returned no results..."

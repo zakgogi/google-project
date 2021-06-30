@@ -1,9 +1,9 @@
 let button = document.getElementById("submitBtn");
 let userInput = document.getElementById("searchInput");
 let luckyButton = document.getElementById("luckyBtn");
-userInput.addEventListener('change', buttonEnable);
+userInput.addEventListener('input', buttonEnable);
 button.addEventListener('click', storeSearch);
-luckyButton.addEventListener('click', e => {randomNavigation(e)});
+luckyButton.addEventListener('click', e => {getFirstResult(e)});
 
 function buttonEnable(){
     if (userInput.value !== ""){
@@ -20,11 +20,16 @@ function storeSearch(){
     localStorage.setItem("searchInput", userInputValue);
 }
 
-function randomNavigation(e){
+async function getFirstResult(e){
     e.preventDefault();
-    let randInt = Math.floor(Math.random() * 10);
-    let query = userInput.value.toLowerCase();
-    let toNav = `resultfinal.html/?input=${query}&result=${randInt}`
-    window.location.assign(toNav); 
+    let userInputValue = userInput.value;
+    let data = await fetch(`http://localhost:3000/${userInputValue}`)
+    let dataJson = await data.json();
+    firstPageNavigation(dataJson);
+}
+
+function firstPageNavigation(data){
+    let toNav = `resultfinal.html?input=${data[0].input}&result=${data[0].results[0]}`
+    window.location.assign(toNav);
 }
 
