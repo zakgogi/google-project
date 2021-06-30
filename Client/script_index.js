@@ -5,6 +5,8 @@ userInput.addEventListener('input', buttonEnable);
 button.addEventListener('click', storeSearch);
 luckyButton.addEventListener('click', e => {getFirstResult(e)});
 
+ //const KEY = YOUR KEY GOES HERE
+ //const CX = YOUR CX CODE GOES HERE
 
 
 function buttonEnable(){

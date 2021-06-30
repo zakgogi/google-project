@@ -2,6 +2,8 @@ window.onload = function() {
     generatePage();
   };
 
+  //const KEY = YOUR KEY GOES HERE
+  //const CX = YOUR CX CODE GOES HERE
   
 let button = document.getElementById("submitBtn");
 button.addEventListener('click', storeSearch);
