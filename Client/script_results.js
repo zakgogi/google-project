@@ -50,13 +50,22 @@ function createPage(data){
 
 async function getDataGoogle(input){
     try{
-        let data = await fetch(`https://www.googleapis.com/customsearch/v1?key=${KEY}&cx=${CX}&q=${input}`);
-        console.log(data);
+        //let data = await fetch(`https://www.googleapis.com/customsearch/v1?key=${KEY}&cx=${CX}&q=${input}`);
+        let list = document.createElement('ul');
+        let sectionToAppend = document.getElementById("resultsSection");
         let dataJson = await data.json();
-        console.log(dataJson);
+        let para = document.createElement('p');
+        para.textContent = ("We were unable to retrieve our own search result.. Here is Google's return:")
         for(item of dataJson.items){
-            console.log(item);
+            let listItem = document.createElement('li');
+            let link = document.createElement('a');
+            link.textContent = item.title;
+            link.setAttribute('href', item.link);
+            listItem.append(link);
+            list.append(listItem);
         }
+        sectionToAppend.append(para);
+        sectionToAppend.append(list);
     }catch(e){
         console.log(e);
     }

@@ -5,6 +5,8 @@ userInput.addEventListener('input', buttonEnable);
 button.addEventListener('click', storeSearch);
 luckyButton.addEventListener('click', e => {getFirstResult(e)});
 
+
+
 function buttonEnable(){
     if (userInput.value !== ""){
         button.disabled = false; 
@@ -29,7 +31,19 @@ async function getFirstResult(e){
 }
 
 function firstPageNavigation(data){
-    let toNav = `resultfinal.html?input=${data[0].input}&result=${data[0].results[0]}`
-    window.location.assign(toNav);
+    try {
+        let toNav = `resultfinal.html?input=${data[0].input}&result=${data[0].results[0]}`
+        window.location.assign(toNav);
+    } catch {
+        navigateToGoogle()
+    }
+    
 }
 
+async function navigateToGoogle(){
+    let userInputValue = userInput.value;
+    let data = await fetch(`https://www.googleapis.com/customsearch/v1?key=${KEY}&cx=${CX}&q=${userInputValue}`);
+    let dataJson = await data.json()
+    let initialLink = dataJson.items[0].link;
+    window.location.assign(initialLink);
+}
